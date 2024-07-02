@@ -1,6 +1,7 @@
 html,body{
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 
 #catImage{
@@ -13,13 +14,19 @@ html,body{
 }
 
 #left{
-    transform: translateY(-300px);
+    transform: translateX(10px);
     width: 100px;
-    height: 300px;
+    height: 150px;
 }
 
 #right{
-    transform: translateY(300px);
+    transform: translateX(-100px);
     width: 100px;
-    height: 300px;
+    height: 150px;
+}
+
+#catSpan{
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
 }

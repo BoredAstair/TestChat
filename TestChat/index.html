@@ -7,7 +7,7 @@
     <link href="css/index.css" rel="stylesheet"></link>
 </head>
 <body>
-    <span id="catPose" style="position:absolute;bottom:0;left:0;"><div style="background-color:blue" id="left"></div><img src="catSprites/catWalk/catWalk1.png" id='catImage'><div style="background-color: red;" id="right"></div></span>
+    <span id="catPose" style="position:absolute;bottom:0;left:0;"><span id="catSpan"><div id="left" onmouseenter="startAttackLeft()" onmouseleave="stopAttack()"></div><img src="catSprites/catWalk/catWalk1.png" id='catImage'><div id="right" onmouseenter="startAttack()" onmouseleave="stopAttack()"></div></span></span>
 </body>
 <script src="js/index.js"></script>
 </html>

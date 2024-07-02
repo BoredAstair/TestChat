@@ -1,21 +1,18 @@
 catImg = document.getElementById('catImage');
 catPose = document.getElementById('catPose');
-let i = 1;
+catSpan = document.getElementById('catSpan');
+let i = 0;
 let currentInterval;
+let currentDelay;
 let slept = false;
 let hasSlept = false;
 let forced = "";
 let facing = 'right';
 
 function chooseRandom(){
+    
     clearInterval(currentInterval);
-    console.log(facing);
-    if (slept){
-        i=4;
-        currentInterval = setInterval(unsleepCatAnim,150);
-        hasSlept = true;
-        return;
-    }
+    clearTimeout(currentDelay);
     if (forced == 'left') {
         facing = 'right';
         forced = "";
@@ -30,59 +27,79 @@ function chooseRandom(){
         }
     }
     if (hasSlept){
-        x = Math.floor(Math.random() * (2 - 1) + 1);
+        x = Math.floor(Math.random() * (3 - 1) + 1);
         hasSlept = false;
     } else {
-        x = Math.floor(Math.random() * (3 - 1) + 1);
+        x = Math.floor(Math.random() * (4 - 1) + 1);
+         
     }
-    console.log("didn't slept");
-    delay = Math.floor(Math.random() * (10000 - 2000) + 2000);
+    delay = Math.floor(Math.random() * (10000 - 4000) + 2000);
+    if (slept){
+        i=3;
+        currentInterval = setInterval(unsleepCatAnim,150);
+        currentDelay = setTimeout(chooseRandom,delay);
+        hasSlept = true;
+        return;
+    }
     switch(x){
         case 1:
-            i=1;
+            i=0;
+            
             currentInterval = setInterval(walkCatIcon,150);
+            currentDelay = setTimeout(chooseRandom,delay);
             break;
         case 2:
-            i=1;
+            i=0;
+            
             currentInterval = setInterval(idleCatAnim,150);
+            currentDelay = setTimeout(chooseRandom,delay);
             break;
         case 3:
-            i=1;
+            i=0;
             slept = true;
+            
             currentInterval = setInterval(sleepCatAnim,150);
+            currentDelay = setTimeout(chooseRandom,delay);
             break;
     }
-    setTimeout(chooseRandom,delay);
+    
+    
 }
+
+chooseRandom();
 
 
 function walkCatIcon(){
+    
     catImg.src = `catSprites/catWalk/catWalk${i}.png`;
     current = catPose.style.left;
     current = current.replace("px","");
-    if (parseInt(current) + 3 + 300 >= window.innerWidth && facing == "right"){
+    
+    if (parseInt(current) + 10 + 300 >= window.innerWidth && facing == "right"){
         forced = 'left';
+        
         chooseRandom();
         return;
     }
-    if (parseInt(current) - 3 - 300 <= 0 && facing == "left"){
+    if (parseInt(current) - 10 <= 0 && facing == "left"){
         forced = 'right';
+        
         chooseRandom();
         return;
     }
     if (facing == 'right'){
-        catImg.classList.remove("facingLeft");
-        catPose.style.left = (parseInt(current) + 3) + "px";
+        catSpan.classList.remove("facingLeft");
+        catPose.style.left = (parseInt(current) + 10) + "px";
         i++;
-        if(i>6){
-            i = 1;
+        if(i>5){
+            i = 0;
         }
     } else {
-        catImg.classList.add("facingLeft");
-        catPose.style.left = (parseInt(current) - 3) + "px";
+        catSpan.classList.add("facingLeft");
+        catPose.style.left = (parseInt(current) - 10) + "px";
         i++;
-        if(i>6){
-            i = 1;
+        if(i>5){
+            i = 0;
         }
     }
 }
@@ -90,37 +107,60 @@ function walkCatIcon(){
 function idleCatAnim(){
     catImg.src = `catSprites/catIdle/catIdle${i}.png`;
     i++;
-    if(i>4){
-        i = 1;
+    if(i>3){
+        i = 0;
     }   
 }
 
 function sleepCatAnim(){
     catImg.src = `catSprites/catSleep/catSleep${i}.png`;
     i++;
-    if(i>4){
-        i=4;
+    if(i>10){
+        i = 5;
     }
 }
 
 function unsleepCatAnim(){
-    console.log('HIT IT');
+    
     catImg.src = `catSprites/catSleep/catSleep${i}.png`;
     i--;
-    console.log(i);
-    if(i<1){
+    
+    if(i<0){
         slept = false;
         chooseRandom();
         return;
     }
 }
 
+function startAttack(){
+    clearTimeout(currentDelay);
+    clearInterval(currentInterval);
+    i = 0;
+    slept = false;
+    currentInterval = setInterval(attackCatAnim,150);
+}
+
+function startAttackLeft(){
+    clearTimeout(currentDelay);
+    clearInterval(currentInterval);
+    i = 0;
+    slept = false;
+    catImg.classList.add('facingLeft');
+    currentInterval = setInterval(attackCatAnim,150);
+}
+
+function stopAttack(){
+    
+    clearInterval(currentInterval);
+    catImg.classList.remove('facingLeft');
+    chooseRandom();
+}
+
 function attackCatAnim(){
-    catImg.src = `catSprites/catSleep/catSleep${i}.png`;
+    catImg.src = `catSprites/catAttack/catAttack${i}.png`;
     i++;
-    if(i>4){
+    if(i>3){
+        setTimeout(()=>{},300);
         i=1;
     }
 }
-
-chooseRandom();
