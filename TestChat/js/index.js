@@ -75,13 +75,13 @@ function walkCatIcon(){
     current = catPose.style.left;
     current = current.replace("px","");
     
-    if (parseInt(current) + 10 + 300 >= window.innerWidth && facing == "right"){
+    if (parseInt(current) + 1 + 10 >= window.innerWidth && facing == "right"){
         forced = 'left';
         
         chooseRandom();
         return;
     }
-    if (parseInt(current) - 10 <= 0 && facing == "left"){
+    if (parseInt(current) - 1 <= 0 && facing == "left"){
         forced = 'right';
         
         chooseRandom();
@@ -89,14 +89,14 @@ function walkCatIcon(){
     }
     if (facing == 'right'){
         catSpan.classList.remove("facingLeft");
-        catPose.style.left = (parseInt(current) + 10) + "px";
+        catPose.style.left = (parseInt(current) + 1) + "px";
         i++;
         if(i>5){
             i = 0;
         }
     } else {
         catSpan.classList.add("facingLeft");
-        catPose.style.left = (parseInt(current) - 10) + "px";
+        catPose.style.left = (parseInt(current) - 1) + "px";
         i++;
         if(i>5){
             i = 0;
