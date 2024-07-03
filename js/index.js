@@ -9,6 +9,8 @@ let hasSlept = false;
 let forced = "";
 let facing = 'right';
 
+console.log(window.innerWidth);
+
 function chooseRandom(){
     
     clearInterval(currentInterval);
@@ -33,7 +35,7 @@ function chooseRandom(){
         x = Math.floor(Math.random() * (4 - 1) + 1);
          
     }
-    delay = Math.floor(Math.random() * (10000 - 4000) + 2000);
+    delay = Math.floor(Math.random() * (30000 - 6000) + 6000);
     if (slept){
         i=3;
         currentInterval = setInterval(unsleepCatAnim,150);
@@ -75,13 +77,13 @@ function walkCatIcon(){
     current = catPose.style.left;
     current = current.replace("px","");
     
-    if (parseInt(current) + 1 + 10 >= window.innerWidth && facing == "right"){
+    if (parseInt(current) + 10 + 75 >= window.innerWidth && facing == "right"){
         forced = 'left';
         
         chooseRandom();
         return;
     }
-    if (parseInt(current) - 1 <= 0 && facing == "left"){
+    if (parseInt(current) - 10 <= 0 && facing == "left"){
         forced = 'right';
         
         chooseRandom();
@@ -89,14 +91,14 @@ function walkCatIcon(){
     }
     if (facing == 'right'){
         catSpan.classList.remove("facingLeft");
-        catPose.style.left = (parseInt(current) + 1) + "px";
+        catPose.style.left = (parseInt(current) + 10) + "px";
         i++;
         if(i>5){
             i = 0;
         }
     } else {
         catSpan.classList.add("facingLeft");
-        catPose.style.left = (parseInt(current) - 1) + "px";
+        catPose.style.left = (parseInt(current) - 10) + "px";
         i++;
         if(i>5){
             i = 0;
@@ -162,5 +164,26 @@ function attackCatAnim(){
     if(i>3){
         setTimeout(()=>{},300);
         i=1;
+    }
+}
+
+function startCuddle(){
+    clearTimeout(currentDelay);
+    clearInterval(currentInterval);
+    i = 0;
+    currentInterval = setInterval(cuddleCatAnim,150);
+}
+
+function stopCuddle(){
+    clearInterval(currentInterval);
+    chooseRandom();
+}
+
+function cuddleCatAnim(){
+    catImg.src = `catSprites/catCuddle/catCuddle${i}.png`;
+    i++;
+    if(i>3){
+        setTimeout(()=>{},300);
+        i=0;
     }
 }

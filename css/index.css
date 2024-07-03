@@ -2,11 +2,13 @@ html,body{
     margin: 0;
     padding: 0;
     overflow: hidden;
+    pointer-events: none;
 }
 
 #catImage{
-    width: 35px;
-    height: 35px;
+    width: 75px;
+    height: 75px;
+    pointer-events: auto;
 }
 
 .facingLeft{
@@ -14,15 +16,16 @@ html,body{
 }
 
 #left{
-    transform: translateX(0px);
-    width: 20px;
-    height: 35px;
+    width: 25px;
+    height:75px;
+    pointer-events: auto;
 }
 
 #right{
-    transform: translateX(-10px);
-    width: 20px;
-    height: 35px;
+    width: 25px;
+    flex-basis: 25px;
+    height: 75px;
+    pointer-events: auto;
 }
 
 #catSpan{
